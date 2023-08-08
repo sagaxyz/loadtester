@@ -70,13 +70,13 @@ func main() {
 	}
 	defer conn.Close()
 
-	if err := registerClientFactories(conn); err != nil {
-		logrus.Fatalf("failed to register client factories: %v", err)
-	}
-
 	config := types.GetConfig()
 	config.SetBech32PrefixForAccount("saga", "sagapub")
 	config.Seal()
+
+	if err := registerClientFactories(conn); err != nil {
+		logrus.Fatalf("failed to register client factories: %v", err)
+	}
 
 	// Configure mux for the gRPC-Gateway API and UI.
 	gwmux := runtime.NewServeMux()

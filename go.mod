@@ -6,9 +6,10 @@ require (
 	github.com/cosmos/cosmos-sdk v0.46.11
 	github.com/ethereum/go-ethereum v1.12.0
 	github.com/evmos/ethermint v0.22.0
+	github.com/gorilla/websocket v1.5.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.14.0
 	github.com/improbable-eng/grpc-web v0.15.0
-	github.com/informalsystems/tm-load-test v1.3.0
+	github.com/informalsystems/tm-load-test v1.3.1-0.20230706170103-f17247bb7e92
 	github.com/lib/pq v1.10.6
 	github.com/sirupsen/logrus v1.9.0
 	go.opencensus.io v0.24.0
@@ -61,7 +62,6 @@ require (
 	github.com/golang/snappy v0.0.5-0.20220116011046-fa5810519dcb // indirect
 	github.com/google/btree v1.1.2 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
-	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
 	github.com/gsterjov/go-libsecret v0.0.0-20161001094733-a6f4afe4910c // indirect
