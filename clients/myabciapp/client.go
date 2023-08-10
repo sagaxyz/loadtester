@@ -133,7 +133,7 @@ func DoSign(txConfig client.TxConfig, txBuilder client.TxBuilder, priv cryptotyp
 
 	// Second round: all signer infos are set, so each signer can sign.
 	signerData := xauthsigning.SignerData{
-		ChainID:       "sevm_100-505",
+		ChainID:       "sevm_100-909",
 		AccountNumber: num,
 		Sequence:      uint64(seq),
 	}
@@ -331,7 +331,16 @@ func (f *CosmosClientFactory) NewClient(cfg loadtest.Config) (loadtest.Client, e
 // loadtest package, so don't worry about that. Only return an error here if you
 // want to completely fail the entire load test operation.
 func (c *CosmosClient) GenerateTx() ([]byte, error) {
-	toAddresses := []string{"saga1kdayzsaumwnpzyp4nkhf5whx6668mxpd4cg5zy", "saga1hz8vlv6gcvz5kwd945zamm7jg88xlt3hylga8f"}
+	newKey, err := ethsecp256k1.GenerateKey()
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	newAddressBech32, err := bech32.ConvertAndEncode("saga", newKey.PubKey().Address().Bytes())
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+	toAddresses := []string{newAddressBech32}
 
 	var msgs []types.Msg
 	txBuilder := c.txConfig.NewTxBuilder()
@@ -348,7 +357,7 @@ func (c *CosmosClient) GenerateTx() ([]byte, error) {
 		msgs = append(msgs, msg)
 	}
 
-	err := txBuilder.SetMsgs(msgs...)
+	err = txBuilder.SetMsgs(msgs...)
 	if err != nil {
 		return nil, fmt.Errorf("SetMsgs failed: %v", err)
 	}
