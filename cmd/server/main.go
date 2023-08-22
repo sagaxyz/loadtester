@@ -12,6 +12,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
+	"github.com/cosmos/cosmos-sdk/types"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
@@ -36,10 +37,6 @@ var (
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-
-	if err := registerClientFactories(); err != nil {
-		logrus.Fatalf("failed to register client factories: %v", err)
-	}
 
 	s := server.NewServer()
 
@@ -72,6 +69,14 @@ func main() {
 		logrus.Fatalln("Failed to dial server:", err)
 	}
 	defer conn.Close()
+
+	config := types.GetConfig()
+	config.SetBech32PrefixForAccount("saga", "sagapub")
+	config.Seal()
+
+	if err := registerClientFactories(conn); err != nil {
+		logrus.Fatalf("failed to register client factories: %v", err)
+	}
 
 	// Configure mux for the gRPC-Gateway API and UI.
 	gwmux := runtime.NewServeMux()
@@ -113,10 +118,10 @@ func main() {
 }
 
 // Add logic to register your custom client factories to this function.
-func registerClientFactories() error {
+func registerClientFactories(conn *grpc.ClientConn) error {
 	cdc := codec.NewProtoCodec(codectypes.NewInterfaceRegistry())
 	txConfig := authtx.NewTxConfig(cdc, authtx.DefaultSignModes)
-	cosmosClientFactory := myabciapp.NewCosmosClientFactory(txConfig)
+	cosmosClientFactory := myabciapp.NewCosmosClientFactory(txConfig, conn)
 	if err := loadtest.RegisterClientFactory("test-cosmos-client-factory", cosmosClientFactory); err != nil {
 		return fmt.Errorf("failed to register client factory %s: %w", "test-cosmos-client-factory", err)
 	}
