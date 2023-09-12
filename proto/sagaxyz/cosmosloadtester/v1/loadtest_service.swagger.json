@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "orijtech/cosmosloadtester/v1/loadtest_service.proto",
+    "title": "sagaxyz/cosmosloadtester/v1/loadtest_service.proto",
     "version": "version not set"
   },
   "tags": [
@@ -94,6 +94,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -279,6 +280,7 @@
         "perSec": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1PerSecond"
           },
           "description": "The respective points per second from 0 until the request's max_time."

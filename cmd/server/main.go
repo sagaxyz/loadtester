@@ -14,20 +14,21 @@ import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/types"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
-	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway/httprule"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
-	"github.com/informalsystems/tm-load-test/pkg/loadtest"
 	_ "github.com/lib/pq"
+	"github.com/sagaxyz/tm-load-test/pkg/loadtest"
 	"github.com/sirupsen/logrus"
 	"go.opencensus.io/plugin/ocgrpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/orijtech/cosmosloadtester/clients/myabciapp"
-	loadtestpb "github.com/orijtech/cosmosloadtester/proto/orijtech/cosmosloadtester/v1"
-	"github.com/orijtech/cosmosloadtester/server"
-	"github.com/orijtech/cosmosloadtester/ui"
+	"github.com/sagaxyz/cosmosloadtester/clients/myabciapp"
+	loadtestpb "github.com/sagaxyz/cosmosloadtester/proto/sagaxyz/cosmosloadtester/v1"
+	"github.com/sagaxyz/cosmosloadtester/server"
+	"github.com/sagaxyz/cosmosloadtester/ui"
 )
 
 var (
@@ -88,7 +89,19 @@ func main() {
 	if err != nil {
 		logrus.Fatalln("failed to load embedded static content: ", err)
 	}
-	err = gwmux.HandlePath("GET", "/**", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
+
+	pathPattern := "/**"
+	compiler, err := httprule.Parse(pathPattern)
+	if err != nil {
+		logrus.Fatalln("parsing path pattern: ", err)
+	}
+	tp := compiler.Compile()
+	pattern, err := runtime.NewPattern(tp.Version, tp.OpCodes, tp.Pool, tp.Verb)
+	if err != nil {
+		logrus.Fatalln("creating new pattern: ", err)
+	}
+
+	gwmux.Handle("GET", pattern, func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
 		http.FileServer(http.FS(fsys)).ServeHTTP(w, r)
 	})
 	if err != nil {

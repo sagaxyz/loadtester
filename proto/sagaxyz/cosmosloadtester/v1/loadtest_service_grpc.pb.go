@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             (unknown)
-// source: orijtech/cosmosloadtester/v1/loadtest_service.proto
+// source: sagaxyz/cosmosloadtester/v1/loadtest_service.proto
 
 package v1
 
@@ -101,5 +101,5 @@ var LoadtestService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "orijtech/cosmosloadtester/v1/loadtest_service.proto",
+	Metadata: "sagaxyz/cosmosloadtester/v1/loadtest_service.proto",
 }

@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/informalsystems/tm-load-test/pkg/loadtest"
-	loadtestpb "github.com/orijtech/cosmosloadtester/proto/orijtech/cosmosloadtester/v1"
+	loadtestpb "github.com/sagaxyz/cosmosloadtester/proto/sagaxyz/cosmosloadtester/v1"
+	"github.com/sagaxyz/tm-load-test/pkg/loadtest"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
