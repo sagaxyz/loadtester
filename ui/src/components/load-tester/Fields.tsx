@@ -1,6 +1,6 @@
 import { FieldType, FormField } from 'src/components/inputs/Inputs';
 
-import { RunLoadtestRequest } from 'src/gen/orijtech/cosmosloadtester/v1/loadtest_service_pb';
+import { RunLoadtestRequest } from 'src/gen/sagaxyz/loadtester/v1/loadtest_service_pb';
 
 const BroadcastTxMethod = RunLoadtestRequest.BroadcastTxMethod;
 const SelectMethod = RunLoadtestRequest.EndpointSelectMethod;

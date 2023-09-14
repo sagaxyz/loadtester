@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "sagaxyz/cosmosloadtester/v1/loadtest_service.proto",
+    "title": "sagaxyz/loadtester/v1/loadtest_service.proto",
     "version": "version not set"
   },
   "tags": [

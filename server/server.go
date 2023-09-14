@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	loadtestpb "github.com/sagaxyz/cosmosloadtester/proto/sagaxyz/cosmosloadtester/v1"
+	loadtestpb "github.com/sagaxyz/loadtester/proto/sagaxyz/loadtester/v1"
 	"github.com/sagaxyz/tm-load-test/pkg/loadtest"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc/codes"

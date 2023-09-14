@@ -25,10 +25,10 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/sagaxyz/cosmosloadtester/clients/myabciapp"
-	loadtestpb "github.com/sagaxyz/cosmosloadtester/proto/sagaxyz/cosmosloadtester/v1"
-	"github.com/sagaxyz/cosmosloadtester/server"
-	"github.com/sagaxyz/cosmosloadtester/ui"
+	"github.com/sagaxyz/loadtester/clients/myabciapp"
+	loadtestpb "github.com/sagaxyz/loadtester/proto/sagaxyz/loadtester/v1"
+	"github.com/sagaxyz/loadtester/server"
+	"github.com/sagaxyz/loadtester/ui"
 )
 
 var (

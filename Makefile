@@ -9,7 +9,7 @@ pb:
 	(cd proto && buf mod update)
 	(cd proto && buf generate --template buf.gen.yaml)
 	(cd proto && buf generate --template buf.gen.ts.grpcweb.yaml --include-imports)
-	npx --yes swagger-typescript-api -p ./proto/sagaxyz/cosmosloadtester/v1/loadtest_service.swagger.json -o ./ui/src/gen -n LoadtestApi.ts
+	npx --yes swagger-typescript-api -p ./proto/sagaxyz/loadtester/v1/loadtest_service.swagger.json -o ./ui/src/gen -n LoadtestApi.ts
 server:
 	CGO_ENABLED=$(CGO_ENABLED) GOARCH=$(GOARCH) $(GO) build -trimpath -ldflags $(LDFLAGS) -o bin/server ./cmd/server
 ui:

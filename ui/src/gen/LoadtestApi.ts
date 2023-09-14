@@ -428,7 +428,7 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title sagaxyz/cosmosloadtester/v1/loadtest_service.proto
+ * @title sagaxyz/loadtester/v1/loadtest_service.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
