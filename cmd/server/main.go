@@ -10,10 +10,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/types"
-	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	"github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway/httprule"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
@@ -132,11 +129,18 @@ func main() {
 
 // Add logic to register your custom client factories to this function.
 func registerClientFactories(conn *grpc.ClientConn) error {
-	cdc := codec.NewProtoCodec(codectypes.NewInterfaceRegistry())
-	txConfig := authtx.NewTxConfig(cdc, authtx.DefaultSignModes)
-	cosmosClientFactory := myabciapp.NewCosmosClientFactory(txConfig, conn)
-	if err := loadtest.RegisterClientFactory("test-cosmos-client-factory", cosmosClientFactory); err != nil {
-		return fmt.Errorf("failed to register client factory %s: %w", "test-cosmos-client-factory", err)
+	// cdc := codec.NewProtoCodec(codectypes.NewInterfaceRegistry())
+	// txConfig := authtx.NewTxConfig(cdc, authtx.DefaultSignModes)
+
+	// cosmosClientFactory := myabciapp.NewCosmosClientFactory(txConfig, conn)
+	// if err := loadtest.RegisterClientFactory("test-cosmos-client-factory", cosmosClientFactory); err != nil {
+	// 	return fmt.Errorf("failed to register client factory %s: %w", "test-cosmos-client-factory", err)
+	// }
+
+	evmClientFactory := myabciapp.NewEvmClientFactory()
+	if err := loadtest.RegisterClientFactory("test-evm-client-factory", evmClientFactory); err != nil {
+		return fmt.Errorf("failed to register client factory %s: %w", "test-evm-client-factory", err)
 	}
+
 	return nil
 }
