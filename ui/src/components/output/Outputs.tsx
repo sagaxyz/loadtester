@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 
-import { RunLoadtestResponse as Result } from 'src/gen/orijtech/cosmosloadtester/v1/loadtest_service_pb';
+import { RunLoadtestResponse as Result } from 'src/gen/sagaxyz/loadtester/v1/loadtest_service_pb';
 
 import { sampleOutput } from './data';
 import Graphs from './Graphs';

@@ -11,6 +11,7 @@
 
 /**
  *  - BROADCAST_TX_METHOD_UNSPECIFIED: Default value. This value is unused.
+ * @default "BROADCAST_TX_METHOD_UNSPECIFIED"
  */
 export enum RunLoadtestRequestBroadcastTxMethod {
   BROADCAST_TX_METHOD_UNSPECIFIED = "BROADCAST_TX_METHOD_UNSPECIFIED",
@@ -20,11 +21,12 @@ export enum RunLoadtestRequestBroadcastTxMethod {
 }
 
 /**
-*  - ENDPOINT_SELECT_METHOD_UNSPECIFIED: Default value. This value is unused.
- - ENDPOINT_SELECT_METHOD_SUPPLIED: Select only the supplied endpoint(s) for load testing (the default).
- - ENDPOINT_SELECT_METHOD_DISCOVERED: Select newly discovered endpoints only (excluding supplied endpoints).
- - ENDPOINT_SELECT_METHOD_ANY: Select from any of supplied and/or discovered endpoints.
-*/
+ *  - ENDPOINT_SELECT_METHOD_UNSPECIFIED: Default value. This value is unused.
+ *  - ENDPOINT_SELECT_METHOD_SUPPLIED: Select only the supplied endpoint(s) for load testing (the default).
+ *  - ENDPOINT_SELECT_METHOD_DISCOVERED: Select newly discovered endpoints only (excluding supplied endpoints).
+ *  - ENDPOINT_SELECT_METHOD_ANY: Select from any of supplied and/or discovered endpoints.
+ * @default "ENDPOINT_SELECT_METHOD_UNSPECIFIED"
+ */
 export enum RunLoadtestRequestEndpointSelectMethod {
   ENDPOINT_SELECT_METHOD_UNSPECIFIED = "ENDPOINT_SELECT_METHOD_UNSPECIFIED",
   ENDPOINT_SELECT_METHOD_SUPPLIED = "ENDPOINT_SELECT_METHOD_SUPPLIED",
@@ -34,6 +36,7 @@ export enum RunLoadtestRequestEndpointSelectMethod {
 
 export interface ProtobufAny {
   "@type"?: string;
+  [key: string]: any;
 }
 
 export interface RpcStatus {
@@ -52,22 +55,18 @@ export interface V1PerSecond {
    * @format int64
    */
   sec?: string;
-
   /**
    * Indicates the queries per second captured by stuffing points within a second booundary.
    * @format double
    */
   qps?: number;
-
   /**
    * Bytes indicates the bytes sent within the time period.
    * @format double
    */
   bytesSent?: number;
-
   /** Indicates the aggregated percentile values by bytes. */
   bytesRankings?: V1Ranking;
-
   /** Indicates the aggregated percentile values by latency. */
   latencyRankings?: V1Ranking;
 }
@@ -75,16 +74,13 @@ export interface V1PerSecond {
 export interface V1Percentile {
   /** The time relative to the request's start time. */
   startOffset?: string;
-
   /** The time between request send and receipt of a response. */
   latency?: string;
-
   /**
    * The number of bytes sent.
    * @format int64
    */
   bytesSent?: string;
-
   /** The human friendly value of the percentile's occurence. It is useful for easy debugging. */
   atStr?: string;
 }
@@ -92,16 +88,12 @@ export interface V1Percentile {
 export interface V1Ranking {
   /** The 50th percentile value aka the median. */
   p50?: V1Percentile;
-
   /** The 75th percentile value. */
   p75?: V1Percentile;
-
   /** The 90th percentile value. */
   p90?: V1Percentile;
-
   /** The 95th percentile value. */
   p95?: V1Percentile;
-
   /** The 99th percentile value, useful to identify outliers. */
   p99?: V1Percentile;
 }
@@ -112,92 +104,78 @@ export interface V1RunLoadtestRequest {
    * Maps to --client-factory in tm-load-test.
    */
   clientFactory?: string;
-
   /**
    * The number of connections to open to each endpoint simultaneously.
    * Maps to --connections in tm-load-test.
    * @format int32
    */
   connectionCount?: number;
-
   /**
    * The duration (in seconds) for which to handle the load test.
    * Maps to --time in tm-load-test.
    */
   duration?: string;
-
   /**
    * The period (in seconds) at which to send batches of transactions.
    * Maps to --send-period in tm-load-test.
    */
   sendPeriod?: string;
-
   /**
    * The number of transactions to generate each second on each connection, to each endpoint.
    * Maps to --rate in tm-load-test.
    * @format int32
    */
   transactionsPerSecond?: number;
-
   /**
    * The size of each transaction, in bytes - must be greater than 40.
    * Maps to --size in tm-load-test.
    * @format int32
    */
   transactionSizeBytes?: number;
-
   /**
    * The maximum number of transactions to send - set to -1 to turn off this limit.
    * Maps to --count in tm-load-test.
    * @format int32
    */
   transactionCount?: number;
-
   /**
    * The broadcast_tx method to use when submitting transactions - can be async, sync or commit.
    * Maps to --broadcast-tx-method in tm-load-test.
    */
   broadcastTxMethod?: RunLoadtestRequestBroadcastTxMethod;
-
   /**
    * A list of URLs indicating Tendermint WebSockets RPC endpoints to which to connect.
    * Maps to --endpoints in tm-load-test.
    */
   endpoints?: string[];
-
   /**
    * The method by which to select endpoints.
    * Maps to --endpoint-select-method in tm-load-test.
    */
   endpointSelectMethod?: RunLoadtestRequestEndpointSelectMethod;
-
   /**
    * The minimum number of peers to expect when crawling the P2P network from the specified endpoint(s) prior to waiting for workers to connect.
    * Maps to --expect-peers in tm-load-test.
    * @format int32
    */
   expectPeersCount?: number;
-
   /**
    * The maximum number of endpoints to use for testing, where 0 means unlimited.
    * Maps to --max-endpoints in tm-load-test.
    * @format int32
    */
   maxEndpointCount?: number;
-
   /**
    * The number of seconds to wait for all required peers to connect if expect-peers > 0.
    * Maps to --peer-connect-timeout in tm-load-test.
    */
   peerConnectTimeout?: string;
-
   /**
    * The minimum number of peers to which each peer must be connected before starting the load test.
    * Maps to --min-peer-connectvity in tm-load-test.
    * @format int32
    */
   minPeerConnectivityCount?: number;
-
   /**
    * Where to store aggregate statistics (in CSV format) for the load test.
    * Maps to --stats-output in tm-load-test.
@@ -212,34 +190,29 @@ export interface V1RunLoadtestResponse {
    * @format int64
    */
   totalTxs?: string;
-
   /**
    * The total time taken to send `total_txs` transactions.
    * Corresponds to total_txs in tm-load-test.
    */
   totalTime?: string;
-
   /**
    * The cumulative number of bytes sent as transactions.
    * Corresponds to total_bytes in tm-load-test.
    * @format int64
    */
   totalBytes?: string;
-
   /**
    * The rate at which transactions were submitted (tx/sec).
    * Corresponds to avg_tx_rate in tm-load-test.
    * @format double
    */
   avgTxsPerSecond?: number;
-
   /**
    * The rate at which data was transmitted in transactions (bytes/sec).
    * Corresponds to avg_data_rate in tm-load-test.
    * @format double
    */
   avgBytesPerSecond?: number;
-
   /** The respective points per second from 0 until the request's max_time. */
   perSec?: V1PerSecond[];
 }
@@ -286,6 +259,7 @@ export enum ContentType {
   Json = "application/json",
   FormData = "multipart/form-data",
   UrlEncoded = "application/x-www-form-urlencoded",
+  Text = "text/plain",
 }
 
 export class HttpClient<SecurityDataType = unknown> {
@@ -310,16 +284,16 @@ export class HttpClient<SecurityDataType = unknown> {
     this.securityData = data;
   };
 
-  private encodeQueryParam(key: string, value: any) {
+  protected encodeQueryParam(key: string, value: any) {
     const encodedKey = encodeURIComponent(key);
     return `${encodedKey}=${encodeURIComponent(typeof value === "number" ? value : `${value}`)}`;
   }
 
-  private addQueryParam(query: QueryParamsType, key: string) {
+  protected addQueryParam(query: QueryParamsType, key: string) {
     return this.encodeQueryParam(key, query[key]);
   }
 
-  private addArrayQueryParam(query: QueryParamsType, key: string) {
+  protected addArrayQueryParam(query: QueryParamsType, key: string) {
     const value = query[key];
     return value.map((v: any) => this.encodeQueryParam(key, v)).join("&");
   }
@@ -340,6 +314,7 @@ export class HttpClient<SecurityDataType = unknown> {
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
       input !== null && (typeof input === "object" || typeof input === "string") ? JSON.stringify(input) : input,
+    [ContentType.Text]: (input: any) => (input !== null && typeof input !== "string" ? JSON.stringify(input) : input),
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((formData, key) => {
         const property = input[key];
@@ -356,7 +331,7 @@ export class HttpClient<SecurityDataType = unknown> {
     [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
   };
 
-  private mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
+  protected mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -369,7 +344,7 @@ export class HttpClient<SecurityDataType = unknown> {
     };
   }
 
-  private createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
+  protected createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
       const abortController = this.abortControllers.get(cancelToken);
       if (abortController) {
@@ -416,10 +391,10 @@ export class HttpClient<SecurityDataType = unknown> {
     return this.customFetch(`${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`, {
       ...requestParams,
       headers: {
-        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
         ...(requestParams.headers || {}),
+        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
       },
-      signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
+      signal: (cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal) || null,
       body: typeof body === "undefined" || body === null ? null : payloadFormatter(body),
     }).then(async (response) => {
       const r = response as HttpResponse<T, E>;
@@ -453,7 +428,7 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title orijtech/cosmosloadtester/v1/loadtest_service.proto
+ * @title sagaxyz/loadtester/v1/loadtest_service.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {

@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             (unknown)
-// source: orijtech/cosmosloadtester/v1/loadtest_service.proto
+// source: sagaxyz/loadtester/v1/loadtest_service.proto
 
 package v1
 
@@ -35,7 +35,7 @@ func NewLoadtestServiceClient(cc grpc.ClientConnInterface) LoadtestServiceClient
 
 func (c *loadtestServiceClient) RunLoadtest(ctx context.Context, in *RunLoadtestRequest, opts ...grpc.CallOption) (*RunLoadtestResponse, error) {
 	out := new(RunLoadtestResponse)
-	err := c.cc.Invoke(ctx, "/orijtech.cosmosloadtester.v1.LoadtestService/RunLoadtest", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/sagaxyz.loadtester.v1.LoadtestService/RunLoadtest", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func _LoadtestService_RunLoadtest_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/orijtech.cosmosloadtester.v1.LoadtestService/RunLoadtest",
+		FullMethod: "/sagaxyz.loadtester.v1.LoadtestService/RunLoadtest",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LoadtestServiceServer).RunLoadtest(ctx, req.(*RunLoadtestRequest))
@@ -92,7 +92,7 @@ func _LoadtestService_RunLoadtest_Handler(srv interface{}, ctx context.Context, 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var LoadtestService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "orijtech.cosmosloadtester.v1.LoadtestService",
+	ServiceName: "sagaxyz.loadtester.v1.LoadtestService",
 	HandlerType: (*LoadtestServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -101,5 +101,5 @@ var LoadtestService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "orijtech/cosmosloadtester/v1/loadtest_service.proto",
+	Metadata: "sagaxyz/loadtester/v1/loadtest_service.proto",
 }

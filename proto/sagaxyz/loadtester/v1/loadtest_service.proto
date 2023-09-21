@@ -1,7 +1,7 @@
 syntax = "proto3";
-option go_package = "github.com/orijtech/cosmosloadtester/proto/orijtech/cosmosloadtester/v1";
+option go_package = "github.com/sagaxyz/loadtester/proto/sagaxyz/loadtester/v1";
 
-package orijtech.cosmosloadtester.v1;
+package sagaxyz.loadtester.v1;
 
 import "google/api/annotations.proto";
 import "google/protobuf/duration.proto";

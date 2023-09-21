@@ -6,8 +6,8 @@ import Button from '@mui/material/Button';
 import * as timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
 
 
-import { LoadtestServiceClient } from 'src/gen/orijtech/cosmosloadtester/v1/Loadtest_serviceServiceClientPb';
-import { RunLoadtestRequest, RunLoadtestResponse } from 'src/gen/orijtech/cosmosloadtester/v1/loadtest_service_pb';
+import { LoadtestServiceClient } from 'src/gen/sagaxyz/loadtester/v1/Loadtest_serviceServiceClientPb';
+import { RunLoadtestRequest, RunLoadtestResponse } from 'src/gen/sagaxyz/loadtester/v1/loadtest_service_pb';
 import { Spinner } from 'src/components/Spinner';
 import Inputs from 'src/components/inputs/Inputs';
 import Outputs from 'src/components/output/Outputs';

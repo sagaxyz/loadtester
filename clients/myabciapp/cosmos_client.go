@@ -24,7 +24,7 @@ import (
 	"github.com/evmos/ethermint/crypto/ethsecp256k1"
 	etherminttypes "github.com/evmos/ethermint/types"
 	"github.com/gorilla/websocket"
-	"github.com/informalsystems/tm-load-test/pkg/loadtest"
+	"github.com/sagaxyz/tm-load-test/pkg/loadtest"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
